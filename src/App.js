@@ -12,13 +12,17 @@ class BooksApp extends React.Component {
  componentDidMount () {
    BooksApi.getAll().then(books => this.setState({books}))
  }
-
+ handleShelfChange = (id, event ) => {
+   const books = this.state.books
+   const bookIndex = books.findIndex ( book => book.id === id)
+   const book = books [booksIndex]
+ }
   render () {
     const {books } = this.state
     return (
       <div className="app">
       {this.state.showSearchPage ? (
-        <div className="serach-books">
+        <div className="search-books">
         <div className="search-books-bar"
         <a
         className="close-search"
@@ -37,6 +41,49 @@ class BooksApp extends React.Component {
                 */}
 								<input type="text" placeholder="Search by title or author" />
 							</div>
-      )}
-    )
-  }
+              </div>
+              <div className="search-books-results">
+              <ol calssName="books-grid">
+              </div>
+              </div>
+            ) : (
+              <div className="list=books">
+              <div className="list-books-title">
+              <h1> MyReads </h1>
+              </div>
+              <div className="list-books-content">
+              <BookSheft
+              title="Currently Reading"
+              books={books.filter(
+                book => book.shelft === 'currentlyReading'
+              )}
+              handleShelfChange={this.handleShelfChange}
+              />
+              <BookSheft
+              title="Wat to Read"
+              books={books.filter( book => book.shelf === 'wantToRead')}
+                book => book.shelft === 'wantToRead'
+                handleShelfChange={this.handleShelfChange}
+              )}
+              <BookSheft
+              title="Read"
+              books={books.filter( book => book.shelft === 'Read')}
+                book => book.shelft === 'Read'
+                handleShelfChange={this.handleShelfChange}
+              )}
+              />
+              </div>
+              </div>
+              <div className="open-serach"
+              <a onClick={() => this.setState ({ showSearchPage: true})}>
+              Add a book
+              </a>
+              </div>
+              </div>
+            )}
+            </div>
+          )
+        }
+    }
+
+export default BoosksApp
