@@ -1,5 +1,5 @@
 import React from 'react'
-import Select from './Select'
+import SearchBooks from './SearchBooks'
 
 const Book = ({ book, handleShelfChange }) => (
 	<div className="book">
@@ -13,7 +13,7 @@ const Book = ({ book, handleShelfChange }) => (
 				}}
 			/>
 			<div className="book-shelf-changer">
-				<Select
+				<SearchBooks
 					handleChange={handleShelfChange}
 					bookId={book.id}
 					bookShelf={book.shelf}

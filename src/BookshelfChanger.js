@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Select = ({ handleChange, bookId, bookShelf }) => (
+const BookshelfChanger = ({ handleChange, bookId, bookShelf }) => (
 	<select onChange={handleChange.bind(this, bookId)}>
 		<option value="none" disabled>
 			Move to...
@@ -23,4 +23,4 @@ const Select = ({ handleChange, bookId, bookShelf }) => (
 	</select>
 )
 
-export default Select
+export default BookshelfChanger
