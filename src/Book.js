@@ -1,56 +1,34 @@
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import BookSelector from './BookSelector';
 
-class BookDetail extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            book:'',
-            loading: true
-        }
+class Book extends Component {
+  static propTypes = {
+    book: PropTypes.object.isRequired,
+    moveBookToShelf: PropTypes.func.isRequired
+  }
+
+  render() {
+    const {book, moveBookToShelf} = this.props
+    var authors = (book.authors === undefined) ? [] : book.authors;
+    const coverStyle = {
+      width: 128,
+      height: 193,
+      backgroundImage: `url('${book.imageLinks.smallThumbnail}')`
     }
-    componentDidMount(){
-        BooksAPI.get(this.props.match.params.id).then(book => {
-            this.setState({book})
-            this.setState({loading:false})
-        })
-    }
-    render(){
-        const { book } = this.state
-        return(
-            <div>
-                {(this.state.loading) ? (
-                    <Loader
-                        color="#26A65B" size="16px" margin="4px"
-                    />
-                ) : (
-                    <div>
-                        <div className="list-books-title">
-                            <h1>MyReads</h1>
-                        </div>
-                        <Link className="close-search" to="/">
-                            Go Home
-                        </Link>
-                        {book &&(
-                            <table>
-                                <tbody>
-                                    <td>
-                                        <img className="image-book-detail-center" src={ book.imageLinks.thumbnail } alt={ book.title } height="450" width="350" />
-                                        <h3>Rating</h3>
-                                        <Rating start={ 0 } stop={ 5 } initialRate={ book.averageRating }/>
-                                    </td>
-                                    <td>
-                                        <h1 className="header-text-center">{ book.title }</h1>
-                                        <h2 className="header-text-center">Description</h2>
-                                        <p>{ book.description }</p>
-                                        <a href={ book.previewLink } target="_blank">See Book</a>
-                                    </td>
-                                </tbody>
-                            </table>
-                        )}
-                    </div>
-                )}
-            </div>
-        )
-    }
+    return (
+      <li key={book.id}>
+        <div className='book'>
+          <div className='book-top'>
+            <a href={book.infoLink} target='_blank'><div className='book-cover' style={coverStyle}/></a>
+            <BookSelector book={book} moveBookToShelf={moveBookToShelf}/>
+          </div>
+          <div className='book-title'>{book.title}</div>
+          <div className='book-authors'>{`by ${authors.join(', ')}`}</div>
+        </div>
+      </li>
+    )
+  }
 }
 
-export default BookDetail
+export default Book;
