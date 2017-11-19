@@ -1,10 +1,20 @@
 {
   "dependencies": {
+    "js-throttle-debounce": "^0.1.1",
     "prop-types": "^15.5.8",
     "react": "^15.6.2",
     "react-debounce-input": "^3.1.0",
+<<<<<<< HEAD
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.2.2"
+=======
+    "react-debounce-render": "^3.0.0",
+    "react-dom": "^15.5.4",
+    "react-router-dom": "^4.2.2",
+    "react-throttle-render": "^2.0.0",
+    "rx-op-debounce-throttle": "^1.0.2",
+    "throttle-debounce": "^1.0.1"
+>>>>>>> 82a79f117c947666e322ddbb35c8f2bd032fa075
   },
   "devDependencies": {
     "react-scripts": "0.9.5"

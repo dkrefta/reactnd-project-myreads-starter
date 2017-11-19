@@ -2,17 +2,23 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookShelf from './BookShelf'
+<<<<<<< HEAD
 import LineBooks from './LineBooks'
 import { Route } from 'react-router-dom'
 
+=======
+import BookshelfChanger from './BookshelfChanger'
+import SearchBooks from './SearchBooks'
+import { Route } from 'react-router-dom'
+>>>>>>> 82a79f117c947666e322ddbb35c8f2bd032fa075
 
 class BooksApp extends React.Component {
 	state = {
-		showSearchPage: false,
 		books: [],
 	}
 
 	componentDidMount() {
+<<<<<<< HEAD
 		BooksAPI.getAll().then(books => this.setState({ books }))
 	}
 
@@ -51,5 +57,41 @@ class BooksApp extends React.Component {
             <Route path="/books/:id" component={ BookDetail } />
           </div>
         )
+=======
+    BooksAPI.getAll().then(data => {
+      this.setState({
+        books: data
+      });
+    });
+  }
 
-export default BooksApp
+  handleChangeShelf = (book: any, shelf: string) => {
+    BooksAPI.update(book, shelf).then(response => {
+      this.getBooksOnShelf();
+    });
+  };
+
+  getBooksOnShelf() {
+    BooksAPI.getAll().then(data => {
+      this.setState({
+        books: data
+      });
+    });
+  }
+
+  render() {
+    return (
+      <div className="app">
+        <Route exact path="/" render={() => <BookshelfChanger booksOnShelf={this.state.books} />} />
+        <Route
+          path="/search"
+          render={() =>
+            <SearchBooks onChangeShelf={this.handleChangeShelf} booksOnShelf={this.state.books} />}
+        />
+      </div>
+    );
+  }
+}
+>>>>>>> 82a79f117c947666e322ddbb35c8f2bd032fa075
+
+export default BooksApp;
